@@ -4,7 +4,7 @@ import algoliasearch from "algoliasearch/lite";
 import "instantsearch.css/themes/satellite.css";
 import { Hits, InstantSearch, SearchBox, Configure } from "react-instantsearch";
 import { Hit } from "./Hit";
-import "./Hit.css";
+import { useState } from "react";
 
 const searchClient = algoliasearch(
   "4WWZ0EQ1ZQ",
@@ -12,6 +12,7 @@ const searchClient = algoliasearch(
 );
 
 export default function Search() {
+  const [inpValue, setInpValue] = useState<string | null>(null);
   return (
     <div className="fixed z-50 top-5 left-5 ">
       <InstantSearch
@@ -20,8 +21,19 @@ export default function Search() {
       >
         <Configure hitsPerPage={5} />
         <div className="ais-InstantSearch">
-          <SearchBox className="w-[500px]" />
-          <Hits hitComponent={Hit} />
+          <SearchBox
+            className="w-[500px]"
+            onChangeCapture={(e) => {
+              if (e.type === "change") {
+                // @ts-expect-error - TS doesn't know about the value property
+                setInpValue(e.target.value);
+              }
+            }}
+            onResetCapture={() => {
+              setInpValue(null);
+            }}
+          />
+          {inpValue && <Hits hitComponent={Hit} />}
         </div>
       </InstantSearch>
     </div>
