@@ -10,10 +10,14 @@
   },
   "dependencies": {
     "@types/mapbox-gl": "^3.1.0",
+    "algoliasearch": "^4.23.3",
+    "instantsearch.css": "^8.2.0",
     "mapbox-gl": "^3.4.0",
     "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-instantsearch": "^7.10.0",
+    "react-instantsearch-dom": "^6.40.4"
   },
   "devDependencies": {
     "@types/node": "^20",

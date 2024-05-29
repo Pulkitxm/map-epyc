@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import IconSearch from "./Icons/SearchIcon";
+import IconSearch from "@/components/Icons/SearchIcon";
 
 export default function SearchBar() {
   const searchRef = useRef<HTMLInputElement>(null);

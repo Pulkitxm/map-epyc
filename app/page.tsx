@@ -1,11 +1,11 @@
 import Map from "@/components/Map";
-import SearchBar from "@/components/SearchBar";
+import Search from "@/components/Search";
 
 export default function Home() {
   return (
     <main>
       <Map />
-      <SearchBar />
+      <Search />
     </main>
   );
 }
