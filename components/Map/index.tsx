@@ -14,28 +14,28 @@ function MapboxMap() {
   useEffect(() => {
     const node = mapNode.current;
     if (typeof window === "undefined" || node === null) return;
-    
+
     const mapboxMap = new mapboxgl.Map({
       container: node,
       accessToken:
-      "pk.eyJ1IjoicHVsa2l0eG0iLCJhIjoiY2x3cm82NnQzMDJtajJrc2JwenJ5c2RrdiJ9.pb_qGeXbzAy-DHJnNMEDaA",
+        "pk.eyJ1IjoicHVsa2l0eG0iLCJhIjoiY2x3cm82NnQzMDJtajJrc2JwenJ5c2RrdiJ9.pb_qGeXbzAy-DHJnNMEDaA",
       center: [-74.5, 40],
       // zoom: 9,
     });
     mapboxMap.addControl(new mapboxgl.NavigationControl(), "bottom-right");
     setMap(mapboxMap);
-    
+
     return () => {
       mapboxMap.remove();
     };
   }, []);
-  
+
   useEffect(() => {
     if (!map) return;
 
     // Remove old markers
     markers.forEach((marker) => marker.remove());
-    
+
     // Add new markers
     const newMarkers = people.map((person) => {
       const newMarker = new mapboxgl.Marker()
@@ -58,6 +58,11 @@ function MapboxMap() {
       newMarker.togglePopup();
       return newMarker;
     });
+    newMarkers.length > 0 &&
+      map.flyTo({
+        center: [newMarkers[0].getLngLat().lng, newMarkers[0].getLngLat().lat],
+        zoom: 7,
+      });
     setMarkers(newMarkers);
   }, [map, people]);
 
