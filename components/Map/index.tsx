@@ -19,7 +19,7 @@ function MapboxMap() {
       center: [-74.5, 40],
       zoom: 9,
     });
-
+    mapboxMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
     setMap(mapboxMap);
 
     return () => {
