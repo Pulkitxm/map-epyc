@@ -3,13 +3,18 @@
 import { peopleAtom } from "@/globals/state/people";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { useEffect, useRef, useState } from "react";
-import { useRecoilState } from "recoil";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { useRecoilValue } from "recoil";
 
-function MapboxMap() {
-  const [map, setMap] = useState<mapboxgl.Map>();
+function MapboxMap({
+  map,
+  setMap,
+}: {
+  map: mapboxgl.Map | undefined;
+  setMap: Dispatch<SetStateAction<mapboxgl.Map | undefined>>;
+}) {
   const mapNode = useRef(null);
-  const [people, setPeople] = useRecoilState(peopleAtom);
+  const people = useRecoilValue(peopleAtom);
   const [markers, setMarkers] = useState<mapboxgl.Marker[]>([]);
   useEffect(() => {
     const node = mapNode.current;
@@ -19,8 +24,8 @@ function MapboxMap() {
       container: node,
       accessToken:
         "pk.eyJ1IjoicHVsa2l0eG0iLCJhIjoiY2x3cm82NnQzMDJtajJrc2JwenJ5c2RrdiJ9.pb_qGeXbzAy-DHJnNMEDaA",
-      center: [-74.5, 40],
-      // zoom: 9,
+      center: [77.2373, 28.6542],
+      zoom: 3,
     });
     mapboxMap.addControl(new mapboxgl.NavigationControl(), "bottom-right");
     setMap(mapboxMap);
@@ -64,9 +69,12 @@ function MapboxMap() {
         zoom: 7,
       });
     setMarkers(newMarkers);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, people]);
 
-  return <div ref={mapNode} style={{ width: "100vw", height: "100vh" }} />;
+  return (
+    <div id="map" ref={mapNode} style={{ width: "100vw", height: "100vh" }} />
+  );
 }
 
 export default MapboxMap;
