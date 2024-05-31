@@ -1,7 +1,7 @@
 import { peopleAtom } from "@/globals/state/people";
 import mapboxgl from "mapbox-gl";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useRecoilValue } from "recoil";
 
 export default function Results({
@@ -15,7 +15,6 @@ export default function Results({
 }) {
   const people = useRecoilValue(peopleAtom);
   const slicedPeople = useMemo(() => {
-    console.log(people.slice(0, 5).length);
     return people.slice(0, 5);
   }, [people]);
   function handleClick(index: number) {

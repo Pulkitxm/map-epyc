@@ -27,6 +27,22 @@ export default function SearchBar({
       searchRef.current.focus();
     }
   });
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        "abcdefghijklmnopqrstuvwxyz".includes(e.key).toString().toLowerCase()
+      ) {
+        highlightSearchBar();
+        if (searchRef.current) {
+          searchRef.current.innerText = "";
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
   return (
     <div
       className="fixed top-0 left-0 md:top-6 md:left-6 w-screen md:w-[500px] h-14 bg-white rounded-xl flex items-center px-5 space-x-3 cursor-text"
@@ -43,9 +59,15 @@ export default function SearchBar({
             value={value}
             onChange={(e) => {
               setValue(e.target.value);
-              !showResults&&setShowResults(true);
+              setShowResults(true);
             }}
             onMouseDown={() => setShowResults(true)}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") {
+                setShowResults(false);
+                searchRef.current?.blur();
+              }
+            }}
           />
           <IconClose
             onClick={() => setValue(null)}

@@ -2,12 +2,9 @@
 
 import algoliasearch from "algoliasearch/lite";
 import "instantsearch.css/themes/satellite.css";
-import { Hits, InstantSearch, SearchBox, Configure } from "react-instantsearch";
-import { Hit } from "./Hit";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { peopleAtom } from "@/globals/state/people";
-import LocalPeople from "@/data/people";
 import { HitType } from "@/globals/types/person";
 import SearchBar from "./SearchBar";
 import Results from "./Results";
@@ -17,14 +14,10 @@ const searchClient = algoliasearch(
   "90048574fdaba4da82f82d5d9a0159e5"
 );
 
-export default function Search({
-  map,
-  setMap,
-}: {
-  map: mapboxgl.Map | undefined;
-  setMap: Dispatch<SetStateAction<mapboxgl.Map | undefined>>;
-}) {
-  const [inpValue, setInpValue] = useState<string | null>(null);
+export default function Search({ map }: { map: mapboxgl.Map | undefined }) {
+  const [inpValue, setInpValue] = useState<string | null>(
+    "Jaquelin Alessandrelli"
+  );
   const setPeople = useSetRecoilState(peopleAtom);
   const [loading, setLoading] = useState(false);
   const [showResults, setShowResults] = useState(true);
@@ -87,27 +80,6 @@ export default function Search({
         showResults={showResults}
         setShowResults={setShowResults}
       />
-      {/* <InstantSearch
-        searchClient={searchClient}
-        indexName="FrontendEngineer_Maps"
-      >
-        <Configure hitsPerPage={5} />
-        <div className="ais-InstantSearch">
-          <SearchBox
-            className="w-[500px]"
-            onChangeCapture={(e) => {
-              if (e.type === "change") {
-                // @ts-expect-error - TS doesn't know about the value property
-                setInpValue(e.target.value);
-              }
-            }}
-            onResetCapture={() => {
-              setInpValue(null);
-            }}
-          />
-          {inpValue && <Hits hitComponent={Hit} />}
-        </div>
-      </InstantSearch> */}
     </div>
   );
 }
