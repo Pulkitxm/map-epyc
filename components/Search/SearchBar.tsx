@@ -9,13 +9,11 @@ export default function SearchBar({
   value,
   setValue,
   loading,
-  showResults,
   setShowResults,
 }: {
   value: string | null;
   setValue: Dispatch<SetStateAction<string | null>>;
   loading: boolean;
-  showResults: boolean;
   setShowResults: Dispatch<SetStateAction<boolean>>;
 }) {
   const searchRef = useRef<HTMLInputElement>(null);

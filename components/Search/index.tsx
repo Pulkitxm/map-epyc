@@ -15,7 +15,7 @@ const searchClient = algoliasearch(
 );
 
 export default function Search({ map }: { map: mapboxgl.Map | undefined }) {
-  const [inpValue, setInpValue] = useState<string | null>();
+  const [inpValue, setInpValue] = useState<string | null>(null);
   const setPeople = useSetRecoilState(peopleAtom);
   const [loading, setLoading] = useState(false);
   const [showResults, setShowResults] = useState(true);
@@ -67,7 +67,6 @@ export default function Search({ map }: { map: mapboxgl.Map | undefined }) {
   return (
     <div className="fixed z-50 top-5 left-5">
       <SearchBar
-        showResults={showResults}
         setShowResults={setShowResults}
         value={inpValue}
         setValue={setInpValue}
