@@ -45,7 +45,7 @@ export default function SearchBar({
   }, []);
   return (
     <div
-      className="fixed top-0 left-0 md:top-6 md:left-6 w-screen md:w-[500px] h-14 bg-white rounded-xl flex items-center px-5 space-x-3 cursor-text"
+      className="fixed top-0 left-0 md:top-6 md:left-6 w-screen md:w-[500px] h-14 bg-white rounded-xl  flex items-center px-5 space-x-3 cursor-text border-4 border-transparent focus-within:border-blue-500"
       onClick={highlightSearchBar}
     >
       {loading ? <LoadingIcon /> : <IconSearch className="cursor-pointer" />}
@@ -54,7 +54,9 @@ export default function SearchBar({
           <input
             ref={searchRef}
             type="text"
-            className="flex-grow outline-none border-none"
+            className={`flex-grow outline-none border-none ${
+              value ? "border" : ""
+            }`}
             placeholder="Search Members"
             value={value}
             onChange={(e) => {
@@ -70,7 +72,10 @@ export default function SearchBar({
             }}
           />
           <IconClose
-            onClick={() => setValue(null)}
+            onClick={() => {
+              setValue(null);
+              setShowResults(false);
+            }}
             className="cursor-pointer"
           />
         </>
@@ -78,7 +83,9 @@ export default function SearchBar({
         <input
           ref={searchRef}
           type="text"
-          className="flex-grow outline-none border-none"
+          className={`flex-grow outline-none border-none ${
+            value ? "border" : ""
+          }`}
           placeholder="Search Members"
           value={""}
           onChange={(e) => setValue(e.target.value)}

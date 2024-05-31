@@ -15,9 +15,7 @@ const searchClient = algoliasearch(
 );
 
 export default function Search({ map }: { map: mapboxgl.Map | undefined }) {
-  const [inpValue, setInpValue] = useState<string | null>(
-    "Jaquelin Alessandrelli"
-  );
+  const [inpValue, setInpValue] = useState<string | null>();
   const setPeople = useSetRecoilState(peopleAtom);
   const [loading, setLoading] = useState(false);
   const [showResults, setShowResults] = useState(true);
