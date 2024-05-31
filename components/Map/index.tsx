@@ -43,7 +43,9 @@ function MapboxMap({
 
     // Add new markers
     const newMarkers = people.map((person) => {
-      const newMarker = new mapboxgl.Marker()
+      const newMarker = new mapboxgl.Marker({
+        color: "#FF0000",
+      })
         .setLngLat([
           person["location.lng"] as number,
           person["location.lat"] as number,

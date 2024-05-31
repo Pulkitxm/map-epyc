@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main>
       <Map map={map} setMap={setMap} />
-      <Search map={map} setMap={setMap} />
+      <Search map={map} />
     </main>
   );
 }
